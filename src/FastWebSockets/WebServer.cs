@@ -1,8 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using System.Net.WebSockets;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json;
 using FastWebSockets;
+using FastWebSockets.Utils;
 
 public class WebServer : BaseEmitter
 {
@@ -97,18 +100,21 @@ public class WebServer : BaseEmitter
                 {
                     var receivedMessage = Encoding.UTF8.GetString(buffer, 0, result.Count);
 
-                    var handlerName = ExtractHandlerNameFromMessage(receivedMessage);
+                    var packet = JsonSerializer.Deserialize<WebPacket>(receivedMessage);
 
-                    var handler = _handlers.FirstOrDefault(x => x.GetType().Name == handlerName);
+                    if (packet is null)
+                    {
+                        throw new SerializationException("Failed to deserialize web packet.");
+                    }
+                    
+                    var handler = _handlers.FirstOrDefault(x => x.GetType().Name == packet.Handler);
 
                     if (handler is null)
                     {
-                        throw new Exception($"Cannot find handler of type {handlerName}");
+                        throw new Exception($"Cannot find handler of type {packet.Handler}");
                     }
 
-                    receivedMessage = receivedMessage.Split("?message=")[^1];
-                    
-                    await handler.OnMessageReceivedAsync(webSocket, clientId, receivedMessage);
+                    await handler.OnMessageReceivedAsync(webSocket, clientId, packet.Message);
                 }
             }
         }
@@ -130,12 +136,5 @@ public class WebServer : BaseEmitter
                 await webSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Error", CancellationToken.None);
             }
         }
-    }
-    
-    private string ExtractHandlerNameFromMessage(string message)
-    {
-        var handlerStart = message.IndexOf("handler=") + 8;
-        var handlerEnd = message.IndexOf("?", handlerStart);
-        return handlerEnd == -1 ? message.Substring(handlerStart) : message.Substring(handlerStart, handlerEnd - handlerStart);
     }
 }

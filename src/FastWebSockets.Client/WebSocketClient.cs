@@ -1,5 +1,7 @@
 ﻿using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FastWebSockets.Client;
 
@@ -9,12 +11,20 @@ public class WebSocketClient : IDisposable
     private readonly ClientWebSocket _webSocket;
     private bool _isConnected;
 
+    /// <summary>
+    /// Client instance of websocket
+    /// </summary>
+    /// <param name="url">Full url of the ws server</param>
     public WebSocketClient(string url)
     {
         _url = url;
         _webSocket = new ClientWebSocket();
     }
 
+    /// <summary>
+    /// Connect to the server.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">When client is already connected.</exception>
     public async Task ConnectAsync()
     {
         if (_isConnected)
@@ -24,16 +34,31 @@ public class WebSocketClient : IDisposable
         _isConnected = true;
     }
 
+    /// <summary>
+    /// Sends message to server.
+    /// </summary>
+    /// <param name="handler">The server's handler name where the message will be processed.</param>
+    /// <param name="message">The message that will be sent</param>
+    /// <param name="messageType">WebSocketMessageType</param>
+    /// <exception cref="InvalidOperationException">When client is not connected to the server.</exception>
     public async Task SendMessageAsync(string handler, string message, WebSocketMessageType messageType)
     {
         if (!_isConnected)
             throw new InvalidOperationException("WebSocket is not connected.");
+
+        var packet = new WebPacket(handler, message);
+        var serialized = JsonSerializer.Serialize(packet);
         
-        var formattedMessage = $"handler={handler}?message={message}";
-        var messageBytes = Encoding.UTF8.GetBytes(formattedMessage);
+        var messageBytes = Encoding.UTF8.GetBytes(serialized);
         await _webSocket.SendAsync(new ArraySegment<byte>(messageBytes), messageType, true, CancellationToken.None);
     }
 
+    /// <summary>
+    /// Receive message from server.
+    /// </summary>
+    /// <param name="messageType">WebSocketMessageType</param>
+    /// <returns>Message as string from server</returns>
+    /// <exception cref="InvalidOperationException">When message type from result does not match the messageType</exception>
     public async Task<string> ReceiveMessageAsync(WebSocketMessageType messageType)
     {
         if (!_isConnected)
@@ -68,6 +93,10 @@ public class WebSocketClient : IDisposable
         return null;
     }
 
+    /// <summary>
+    /// Closes the connection
+    /// </summary>
+    /// <param name="reason">Reason description</param>
     public async Task CloseAsync(string reason)
     {
         if (_isConnected)
