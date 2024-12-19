@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B751DB26-ECCD-4A90-83D0-E0F7BFDD730E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{16609934-F9BE-46F1-A5B0-1197B2282005}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastWebSockets", "src\FastWebSockets\FastWebSockets.csproj", "{599C1BF6-764F-4196-BB8B-45A5B6F47D18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp.Server.Test", "tests\ConsoleApp.Server.Test\ConsoleApp.Server.Test.csproj", "{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastWebSockets.Client", "src\FastWebSockets.Client\FastWebSockets.Client.csproj", "{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{599C1BF6-764F-4196-BB8B-45A5B6F47D18} = {B751DB26-ECCD-4A90-83D0-E0F7BFDD730E}
+		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A} = {16609934-F9BE-46F1-A5B0-1197B2282005}
+		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509} = {B751DB26-ECCD-4A90-83D0-E0F7BFDD730E}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{599C1BF6-764F-4196-BB8B-45A5B6F47D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599C1BF6-764F-4196-BB8B-45A5B6F47D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599C1BF6-764F-4196-BB8B-45A5B6F47D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599C1BF6-764F-4196-BB8B-45A5B6F47D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
