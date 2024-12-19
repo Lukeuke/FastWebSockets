@@ -47,9 +47,8 @@ public class WebSocketClient : IDisposable
             throw new InvalidOperationException("WebSocket is not connected.");
 
         var packet = new WebPacket(handler, message);
-        var serialized = JsonSerializer.Serialize(packet);
         
-        var messageBytes = Encoding.UTF8.GetBytes(serialized);
+        var messageBytes = Encoding.UTF8.GetBytes(packet.ToString());
         await _webSocket.SendAsync(new ArraySegment<byte>(messageBytes), messageType, true, CancellationToken.None);
     }
 

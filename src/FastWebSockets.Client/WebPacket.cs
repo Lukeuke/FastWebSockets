@@ -1,4 +1,6 @@
-﻿namespace FastWebSockets.Client;
+﻿using System.Text.Json;
+
+namespace FastWebSockets.Client;
 
 /// <summary>
 /// Represents packet being sent to server
@@ -13,9 +15,14 @@ internal class WebPacket
     
     // ReSharper disable once MemberCanBePrivate.Global
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    internal string Handler { get; }
+    public string Handler { get; }
     
     // ReSharper disable once MemberCanBePrivate.Global
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    internal string Message { get; }
+    public string Message { get; }
+
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this);
+    }
 }
