@@ -96,12 +96,19 @@ public class WebServer : BaseEmitter
                 else
                 {
                     var receivedMessage = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    Console.WriteLine($"Received: {receivedMessage}");
 
-                    foreach (var handler in _handlers)
+                    var handlerName = ExtractHandlerNameFromMessage(receivedMessage);
+
+                    var handler = _handlers.FirstOrDefault(x => x.GetType().Name == handlerName);
+
+                    if (handler is null)
                     {
-                        await handler.OnMessageReceivedAsync(webSocket, clientId, receivedMessage);
+                        throw new Exception($"Cannot find handler of type {handlerName}");
                     }
+
+                    receivedMessage = receivedMessage.Split("?message=")[^1];
+                    
+                    await handler.OnMessageReceivedAsync(webSocket, clientId, receivedMessage);
                 }
             }
         }
@@ -123,5 +130,12 @@ public class WebServer : BaseEmitter
                 await webSocket.CloseAsync(WebSocketCloseStatus.InternalServerError, "Error", CancellationToken.None);
             }
         }
+    }
+    
+    private string ExtractHandlerNameFromMessage(string message)
+    {
+        var handlerStart = message.IndexOf("handler=") + 8;
+        var handlerEnd = message.IndexOf("?", handlerStart);
+        return handlerEnd == -1 ? message.Substring(handlerStart) : message.Substring(handlerStart, handlerEnd - handlerStart);
     }
 }

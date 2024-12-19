@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp.Server.Test", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastWebSockets.Client", "src\FastWebSockets.Client\FastWebSockets.Client.csproj", "{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp.Client.Test", "tests\ConsoleApp.Client.Test\ConsoleApp.Client.Test.csproj", "{67AA76DB-97DB-4435-A983-017B595C8D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,7 @@ Global
 		{599C1BF6-764F-4196-BB8B-45A5B6F47D18} = {B751DB26-ECCD-4A90-83D0-E0F7BFDD730E}
 		{FDA0DC00-D9A1-4C25-90CF-97F7FB309C8A} = {16609934-F9BE-46F1-A5B0-1197B2282005}
 		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509} = {B751DB26-ECCD-4A90-83D0-E0F7BFDD730E}
+		{67AA76DB-97DB-4435-A983-017B595C8D82} = {16609934-F9BE-46F1-A5B0-1197B2282005}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{599C1BF6-764F-4196-BB8B-45A5B6F47D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -33,5 +36,9 @@ Global
 		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCBCA20B-206B-4BDA-A744-3F9CDBA1A509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67AA76DB-97DB-4435-A983-017B595C8D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67AA76DB-97DB-4435-A983-017B595C8D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67AA76DB-97DB-4435-A983-017B595C8D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67AA76DB-97DB-4435-A983-017B595C8D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

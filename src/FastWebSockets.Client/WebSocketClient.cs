@@ -24,12 +24,13 @@ public class WebSocketClient : IDisposable
         _isConnected = true;
     }
 
-    public async Task SendMessageAsync(string message, WebSocketMessageType messageType)
+    public async Task SendMessageAsync(string handler, string message, WebSocketMessageType messageType)
     {
         if (!_isConnected)
             throw new InvalidOperationException("WebSocket is not connected.");
-
-        var messageBytes = Encoding.UTF8.GetBytes(message);
+        
+        var formattedMessage = $"handler={handler}?message={message}";
+        var messageBytes = Encoding.UTF8.GetBytes(formattedMessage);
         await _webSocket.SendAsync(new ArraySegment<byte>(messageBytes), messageType, true, CancellationToken.None);
     }
 
